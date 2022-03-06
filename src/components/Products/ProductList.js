@@ -1,38 +1,38 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { gql, useMutation } from "@apollo/client";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
-const people = [
-  {
-    name: "Jane Cooper",
-    title:
-      "Regional Paradigm djasd asd jasdk jkdnas jkda kasdj asd ikasjd kasjda sdikasdj jasdhja  Technician",
-    department: "Optimization",
-    role: "Admin",
-    email: "jane.cooper@example.com",
-    image:
-      "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcQYu4oBLIpSST83vrB8AdqZoi1shpweVUSBvTdYxbcOhJY9bmXVS8f8Y127-tKn-9LKi6d5kpq_uIll9LOAAtMcfJnUHtxd",
-  },
-  {
-    name: "Jane Cooper",
-    title: "Regional Paradigm Technician",
-    department: "Optimization",
-    role: "Admin",
-    email: "jane.cooper@example.com",
-    image:
-      "https://d2d22nphq0yz8t.cloudfront.net/88e6cc4b-eaa1-4053-af65-563d88ba8b26/https://media.croma.com/image/upload/v1632486773/Croma%20Assets/Computers%20Peripherals/Laptop/Images/243409_pxecv1.png/mxw_1366,s_webp,f_auto",
-  },
-  {
-    name: "Jane Cooper",
-    title: "Regional Paradigm Technician",
-    department: "Optimization",
-    role: "Admin",
-    email: "jane.cooper@example.com",
-    image:
-      "https://d2d22nphq0yz8t.cloudfront.net/88e6cc4b-eaa1-4053-af65-563d88ba8b26/https://media.croma.com/image/upload/v1606483326/Croma%20Assets/Computers%20Peripherals/Laptop/Images/9000567799838.png/mxw_1366,s_webp,f_auto",
-  },
-  // More people...
-];
+// const people = [
+//   {
+//     name: "Jane Cooper",
+//     title:
+//       "Regional Paradigm djasd asd jasdk jkdnas jkda kasdj asd ikasjd kasjda sdikasdj jasdhja  Technician",
+//     department: "Optimization",
+//     role: "Admin",
+//     email: "jane.cooper@example.com",
+//     image:
+//       "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcQYu4oBLIpSST83vrB8AdqZoi1shpweVUSBvTdYxbcOhJY9bmXVS8f8Y127-tKn-9LKi6d5kpq_uIll9LOAAtMcfJnUHtxd",
+//   },
+//   {
+//     name: "Jane Cooper",
+//     title: "Regional Paradigm Technician",
+//     department: "Optimization",
+//     role: "Admin",
+//     email: "jane.cooper@example.com",
+//     image:
+//       "https://d2d22nphq0yz8t.cloudfront.net/88e6cc4b-eaa1-4053-af65-563d88ba8b26/https://media.croma.com/image/upload/v1632486773/Croma%20Assets/Computers%20Peripherals/Laptop/Images/243409_pxecv1.png/mxw_1366,s_webp,f_auto",
+//   },
+//   {
+//     name: "Jane Cooper",
+//     title: "Regional Paradigm Technician",
+//     department: "Optimization",
+//     role: "Admin",
+//     email: "jane.cooper@example.com",
+//     image:
+//       "https://d2d22nphq0yz8t.cloudfront.net/88e6cc4b-eaa1-4053-af65-563d88ba8b26/https://media.croma.com/image/upload/v1606483326/Croma%20Assets/Computers%20Peripherals/Laptop/Images/9000567799838.png/mxw_1366,s_webp,f_auto",
+//   },
+//   // More people...
+// ];
 
 const REMOVE_PRODUCT = gql`
   mutation RemoveProduct($productId: String!) {
@@ -44,9 +44,9 @@ const REMOVE_PRODUCT = gql`
 
 const ProductList = (props) => {
   let navigate = useNavigate();
-  const [isRemove, setIsRemoved] = useState(false);
+  // const [isRemove, setIsRemoved] = useState(false);
 
-  const [removeProduct, { data, loading, error }] = useMutation(
+  const [removeProduct] = useMutation(
     REMOVE_PRODUCT,
     {
       onCompleted: (data) => {

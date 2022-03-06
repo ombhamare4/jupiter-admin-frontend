@@ -1,23 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { gql, useMutation } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
-import RichTextEditor from "react-rte";
-// import {Editor, EditorState} from 'draft-js';
-// import MyEditor from "../RichTextEditor/RichTextEditor";
-// import MyStatefulEditor from "../RichTextEditor/RichTextEditor";
-// import 'draft-js/dist/Draft.css';
-import { Editor } from "react-draft-wysiwyg";
 import "../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import RichtextEditor from "../RichTextEditor/RichTextEditor";
-
-import {
-  EditorState,
-  ContentState,
-  convertFromHTML,
-  CompositeDecorator,
-  convertToRaw,
-  getDefaultKeyBinding,
-} from "draft-js";
 
 const Category = [
   {
@@ -158,16 +142,13 @@ const ProductForm = () => {
   //   return 0;
   // });
 
-  const [editorState, setEditorState] = useState(() =>
-    EditorState.createEmpty()
-  );
   // console.log(editorState);
 
   let navigate = useNavigate();
-  const [createdProduct, setCreatedProduct] = useState(false);
-  const [addProduct, { data, loading, refetch }] = useMutation(CREATE_PORDUCT, {
-    onCompleted: (data) => {
-      setCreatedProduct(true);
+  // const [createdProduct, setCreatedProduct] = useState(false);
+  const [addProduct, {refetch }] = useMutation(CREATE_PORDUCT, {
+    onCompleted: () => {
+      // setCreatedProduct(true);
       navigate("/products");
     },
   });
@@ -204,18 +185,11 @@ const ProductForm = () => {
     const productAvailability = productAvailabilityRef.current.value;
     const productWeight = productWeightRef.current.value;
 
-    const blocks = convertToRaw(editorState.getCurrentContent()).blocks;
-
-    console.log(blocks);
-    const value = blocks
-      .map((block) => (!block.text.trim() && "\n") || block.text)
-      .join("\n");
-    // console.log(value);
 
     addProduct({
       variables: {
         name: productName,
-        description: value,
+        description: productDescription,
         image: productImage,
         originalPrice: parseFloat(productOriginalPrice),
         discountPrice: parseFloat(productDiscountPrice),
@@ -227,9 +201,6 @@ const ProductForm = () => {
     }).then(refetch);
   };
 
-  const editorHandler = (event) => {
-    console.log(event);
-  };
 
   const dropDownHandler = (event) => {
     const index = event.target.selectedIndex;
@@ -239,7 +210,6 @@ const ProductForm = () => {
   };
   return (
     <div className="p-5">
-      <div>{/* <RichTextEditor /> */}</div>
       <form onSubmit={submitHandler}>
         <div className="form-group mb-6">
           <label className={labelStyle}>Name</label>
@@ -251,13 +221,6 @@ const ProductForm = () => {
           />
 
           <label className={labelStyle}>Description</label>
-          {/* <MyStatefulEditor/> */}
-          {/* <Editor
-            editorState={editorState}
-            onEditorStateChange={setEditorState}
-            editorClassName="bg-white p-2"
-          /> */}
-
           <textarea
             className={inputStyle}
             placeholder="Product Description..."

@@ -8,4 +8,4 @@ const AnalyticsPage = ()=>{
     )
 };
 
-export default Analytics;
+export default AnalyticsPage;

@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { gql, useMutation, useQuery } from "@apollo/client";
+import { gql, useMutation } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 const Category = [
   {
@@ -134,10 +134,10 @@ const UPDATE_PRODUCT = gql`
 const UpdateProductForm = (props) => {
   let navigate = useNavigate();
   const [isUpdated, setIsUpdated] = useState(false);
-  const [updateProduct, { data, loading, error }] = useMutation(
+  const [updateProduct] = useMutation(
     UPDATE_PRODUCT,
     {
-      onCompleted: (data) => {
+      onCompleted: () => {
         setIsUpdated(true);
       },
     }

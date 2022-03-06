@@ -1,12 +1,6 @@
 import Product from "../../components/Products/Products";
 import Loading from "../../components/Loading/Loading";
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  useQuery,
-  gql,
-} from "@apollo/client";
+import { useQuery, gql } from "@apollo/client";
 
 const ProductPage = () => {
   const { data, loading, error } = useQuery(GET_PRODUCTS);

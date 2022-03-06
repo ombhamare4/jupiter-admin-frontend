@@ -1,5 +1,3 @@
-import React from "react";
-
 import SideBar from "../SlideBar/SideBar";
 import ScreenPage from "../ScreenPage/ScreenPage";
 

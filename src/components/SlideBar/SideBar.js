@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { BrowserRouter as Router, NavLink, Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { GoHome } from "react-icons/go";
 import { MdOutlineInventory2, MdPeopleAlt } from "react-icons/md";
 import { FaPeopleCarry, FaCartArrowDown, FaBullhorn } from "react-icons/fa";

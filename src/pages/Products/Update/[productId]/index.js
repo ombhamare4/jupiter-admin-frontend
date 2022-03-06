@@ -1,7 +1,6 @@
 import { useParams } from "react-router-dom";
-import { gql, useQuery, useLazyQuery } from "@apollo/client";
+import { gql, useQuery } from "@apollo/client";
 import UpdateProductForm from "../../../../components/ProductForm/UpdateProductForm";
-import { useState } from "react";
 
 const FIND_PRODUCT_BY_ID = gql`
   query ProductById($productId: String!) {
