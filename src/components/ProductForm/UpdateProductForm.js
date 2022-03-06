@@ -192,7 +192,7 @@ const UpdateProductForm = (props) => {
   };
 
   const inputChangedHandler = (event) => {
-    const updatedKeyword = event.target.value;
+    // const updatedKeyword = event.target.value;
   };
 
   const dropDownHandler = (event) => {
