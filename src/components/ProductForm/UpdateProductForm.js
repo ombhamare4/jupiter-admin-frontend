@@ -1,6 +1,9 @@
 import { useRef, useState } from "react";
-import { gql, useMutation } from "@apollo/client";
-import { useNavigate } from "react-router-dom";
+import { useMutation } from "@apollo/client";
+import { UPDATE_PRODUCT } from "../../graphql/mutation";
+import { GET_PRODUCTS } from "../../graphql/query";
+import ErrorModal from "../Modal/ErrorModal";
+import SuccessModal from "../Modal/SuccessModal";
 const Category = [
   {
     id: 1,
@@ -87,8 +90,8 @@ const Category = [
     category: "Assembled CPU",
   },
   {
-    id:21,
-    category:"Mic"
+    id: 21,
+    category: "Mic",
   },
   {
     id: 22,
@@ -104,53 +107,58 @@ const Category = [
   },
 ];
 
-const UPDATE_PRODUCT = gql`
-  mutation UpdateProduct(
-    $productId: String!
-    $name: String!
-    $description: String!
-    $originalPrice: Float!
-    $discountPrice: Float!
-    $image: String!
-    $available: Int!
-    $weight: Float!
-    $category: String!
-    $company: String!
-  ) {
-    updateProduct(
-      productInput: {
-        productId: $productId
-        name: $name
-        description: $description
-        price: { originalPrice: $originalPrice, discountPrice: $discountPrice }
-        image: $image
-        available: $available
-        weight: $weight
-        category: $category
-        company: $company
-      }
-    ) {
-      name
-    }
-  }
-`;
+// const UPDATE_PRODUCT = gql`
+//   mutation UpdateProduct(
+//     $productId: String!
+//     $name: String!
+//     $description: String!
+//     $originalPrice: Float!
+//     $discountPrice: Float!
+//     $image: String!
+//     $available: Int!
+//     $weight: Float!
+//     $category: String!
+//     $company: String!
+//   ) {
+//     updateProduct(
+//       productInput: {
+//         productId: $productId
+//         name: $name
+//         description: $description
+//         price: { originalPrice: $originalPrice, discountPrice: $discountPrice }
+//         image: $image
+//         available: $available
+//         weight: $weight
+//         category: $category
+//         company: $company
+//       }
+//     ) {
+//       name
+//     }
+//   }
+// `;
 
 const UpdateProductForm = (props) => {
-  let navigate = useNavigate();
-  const [isUpdated, setIsUpdated] = useState(false);
-  const [updateProduct] = useMutation(
-    UPDATE_PRODUCT,
-    {
-      onCompleted: () => {
-        setIsUpdated(true);
-      },
-    }
-  );
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState(false);
+
+  const [updateProduct] = useMutation(UPDATE_PRODUCT, {
+    onCompleted: () => {
+      setSuccess(true);
+    },
+    onError: (error) => {
+      console.log(error);
+      if (error) {
+        setError(true);
+      }
+    },
+    refetchQueries: [GET_PRODUCTS, "products"],
+  });
 
   const [dropDownSelect, setDropDownSelect] = useState(Category[0]);
-  if (isUpdated) {
-    navigate("/products");
-  }
+  // if (isUpdated) {
+  //   navigate("/products");
+  // }
   const productNameRef = useRef("");
   const productDescriptionRef = useRef("");
   const productImageRef = useRef("");
@@ -205,8 +213,23 @@ const UpdateProductForm = (props) => {
     const categoryID = el.getAttribute("id");
     setDropDownSelect(Category[categoryID - 1]);
   };
+
+  const errorHandler = () => {
+    setError(false);
+  };
+
   return (
     <div className="p-5">
+      {success &&
+      <SuccessModal title='Success' message='Product Updated Successfully'/>
+      }
+      {error && (
+        <ErrorModal
+          title="Something Went Wrong"
+          error="Check Product Details Again"
+          errorHandler={errorHandler}
+        />
+      )}
       <form onSubmit={submitHandler}>
         <div className="form-group mb-6">
           <label className={labelStyle}>Name</label>

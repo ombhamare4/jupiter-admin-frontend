@@ -1,41 +1,39 @@
 import { useParams } from "react-router-dom";
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
+import {FIND_PRODUCT_BY_ID} from "../../../../graphql/query"
 import UpdateProductForm from "../../../../components/ProductForm/UpdateProductForm";
 
-const FIND_PRODUCT_BY_ID = gql`
-  query ProductById($productId: String!) {
-    productByID(productId: $productId) {
-      _id
-      name
-      price {
-        originalPrice
-        discountPrice
-      }
-      available
-      image
-      company
-      category
-      weight
-      description
-      reviews {
-        rating
-        comment
-      }
-      createdAt
-    }
-  }
-`;
+// const FIND_PRODUCT_BY_ID = gql`
+//   query ProductById($productId: String!) {
+//     productByID(productId: $productId) {
+//       _id
+//       name
+//       price {
+//         originalPrice
+//         discountPrice
+//       }
+//       available
+//       image
+//       company
+//       category
+//       weight
+//       description
+//       reviews {
+//         rating
+//         comment
+//       }
+//       createdAt
+//     }
+//   }
+// `;
 
 const ProductUpdate = () => {
   //   const [productData,setProductData]= useState([]);
   const { productId } = useParams();
-  const { data, loading ,error} = useQuery(FIND_PRODUCT_BY_ID, {
+  const { data, loading} = useQuery(FIND_PRODUCT_BY_ID, {
     variables: { productId: productId },
   });
   if (loading) return 'Loading...';
-  console.log(data);
-  console.log(productId);
-  console.log("Error: "+error);
 
   return (
     <div>

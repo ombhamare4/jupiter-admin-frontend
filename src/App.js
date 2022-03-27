@@ -3,7 +3,7 @@ import Layout from "./components/Layout/Layout";
 import AuthPage from "./components/Authentication/Auth";
 import { useState } from "react";
 function App() {
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
   return (
     <div>
       {!isLogin && <AuthPage setIsLogin={setIsLogin} />}

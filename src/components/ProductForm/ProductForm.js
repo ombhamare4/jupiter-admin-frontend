@@ -1,7 +1,10 @@
 import { useRef, useState } from "react";
-import { gql, useMutation } from "@apollo/client";
-import { useNavigate } from "react-router-dom";
+import { useMutation } from "@apollo/client";
+import { GET_PRODUCTS } from "../../graphql/query";
+import { CREATE_PORDUCT } from "../../graphql/mutation";
 import "../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import ErrorModal from "../Modal/ErrorModal";
+import SuccessModal from "../Modal/SuccessModal";
 
 const Category = [
   {
@@ -89,8 +92,8 @@ const Category = [
     category: "Assembled CPU",
   },
   {
-    id:21,
-    category:"Mic"
+    id: 21,
+    category: "Mic",
   },
   {
     id: 22,
@@ -106,62 +109,25 @@ const Category = [
   },
 ];
 
-const CREATE_PORDUCT = gql`
-  mutation AddProduct(
-    $name: String!
-    $description: String!
-    $originalPrice: Float!
-    $discountPrice: Float!
-    $image: String!
-    $available: Int!
-    $weight: Float!
-    $category: String!
-    $company: String!
-  ) {
-    createProduct(
-      productInput: {
-        name: $name
-        description: $description
-        price: { originalPrice: $originalPrice, discountPrice: $discountPrice }
-        image: $image
-        available: $available
-        weight: $weight
-        category: $category
-        company: $company
-      }
-    ) {
-      name
-    }
-  }
-`;
-
 const ProductForm = () => {
-  // const categoryList =  Category.sort(function (a, b) {
-  //   if (a.category < b.category) {
-  //     return -1;
-  //   }
-  //   if (a.category > b.category) {
-  //     return 1;
-  //   }
-  //   return 0;
-  // });
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState(false);
 
-  // console.log(editorState);
-
-  let navigate = useNavigate();
-  // const [createdProduct, setCreatedProduct] = useState(false);
-  const [addProduct, {refetch }] = useMutation(CREATE_PORDUCT, {
+  const [addProduct, { refetch }] = useMutation(CREATE_PORDUCT, {
     onCompleted: () => {
-      // setCreatedProduct(true);
-      navigate("/products");
+      setSuccess(true);
     },
+    onError: (error) => {
+      console.log(error);
+      if (error) {
+        setError(true);
+      }
+    },
+    refetchQueries: [GET_PRODUCTS, "products"],
   });
 
   const [dropDownSelect, setDropDownSelect] = useState(Category[0]);
 
-  // if (createdProduct) {
-  //   navigate("/products");
-  // }
   const productNameRef = useRef("");
   const productDescriptionRef = useRef("");
   const productImageRef = useRef("");
@@ -189,7 +155,6 @@ const ProductForm = () => {
     const productAvailability = productAvailabilityRef.current.value;
     const productWeight = productWeightRef.current.value;
 
-
     addProduct({
       variables: {
         name: productName,
@@ -205,15 +170,30 @@ const ProductForm = () => {
     }).then(refetch);
   };
 
-
   const dropDownHandler = (event) => {
     const index = event.target.selectedIndex;
     const el = event.target.childNodes[index];
     const categoryID = el.getAttribute("id");
     setDropDownSelect(Category[categoryID - 1]);
   };
+
+  const errorHandler = () => {
+    setError(false);
+  };
+
   return (
     <div className="p-5">
+      {success && (
+        <SuccessModal title="Success" message="Product Added Successfully" />
+      )}
+      {error && (
+        <ErrorModal
+          title="Something Went Wrong"
+          error="Check Product Details Again"
+          errorHandler={errorHandler}
+        />
+      )}
+
       <form onSubmit={submitHandler}>
         <div className="form-group mb-6">
           <label className={labelStyle}>Name</label>
