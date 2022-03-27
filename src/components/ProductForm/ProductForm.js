@@ -22,7 +22,7 @@ const Category = [
   },
   {
     id: 5,
-    category: "Headphone",
+    category: "Headphones",
   },
   {
     id: 6,
@@ -62,11 +62,11 @@ const Category = [
   },
   {
     id: 15,
-    category: "Processor Cooler",
+    category: "Proccessor Cooler",
   },
   {
     id: 16,
-    category: "OS",
+    category: "Operating System",
   },
   {
     id: 17,
@@ -74,23 +74,27 @@ const Category = [
   },
   {
     id: 18,
-    category: "Webcam & Camera",
+    category: "Webcam",
   },
+  // {
+  //   id: 19,
+  //   category: "Desk",
+  // },
   {
     id: 19,
-    category: "Desk",
-  },
-  {
-    id: 20,
     category: "Laptop",
   },
   {
-    id: 21,
-    category: "Assemble CPU",
+    id: 20,
+    category: "Assembled CPU",
+  },
+  {
+    id:21,
+    category:"Mic"
   },
   {
     id: 22,
-    category: "Cable",
+    category: "Cables",
   },
   {
     id: 23,
