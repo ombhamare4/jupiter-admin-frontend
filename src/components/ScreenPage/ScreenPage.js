@@ -11,6 +11,7 @@ import ShipmentPage from "../../pages/Shipments/ShipmentsPage";
 import AccountPage from "../../pages/Account/AccountPage";
 import AddProduct from "../../pages/Products/Add/AddProduct";
 import ProductUpdate from "../../pages/Products/Update/[productId]";
+import OrderNo from "../../pages/Orders/[orderId]";
 const ScreenPage = () => {
   return (
     <div className="bg-blue-100 w-auto rounded-t-xl">
@@ -26,6 +27,7 @@ const ScreenPage = () => {
           element={<ProductUpdate />}
         ></Route>
         <Route path="/orders" element={<OrdersPage />}></Route>
+        <Route path="/orders/:orderId" element={<OrderNo />}></Route>
         <Route path="/shipments" element={<ShipmentPage />}></Route>
         <Route path="/marketing" element={<MarketingPage />}></Route>
         <Route path="/account" element={<AccountPage />}></Route>
