@@ -35,7 +35,7 @@ const OrderViewData = (props) => {
   var time =
     date + "," + month + " " + year + " " + hour + ":" + min + ":" + sec;
 
-  const [ship, { data, loading, error }] = useMutation(SHIPMENT_ORDER, {
+  const [ship, {loading, error }] = useMutation(SHIPMENT_ORDER, {
     onCompleted: () => {
       setSuccess(true);
     },
