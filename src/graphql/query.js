@@ -99,12 +99,48 @@ export const ORDER_BY_ID = gql`
           _id
           name
           image
-          price{
+          price {
             discountPrice
           }
         }
       }
       createdAt
+    }
+  }
+`;
+
+export const GET_SHIP = gql`
+  query ship {
+    ship {
+      _id
+      name {
+        firstName
+        lastName
+      }
+      user {
+        name {
+          firstName
+          lastName
+        }
+      }
+      orderStatus
+      address {
+        add1
+        state
+        street
+        landmark
+        city
+        country
+        pincode
+      }
+      orderProducts {
+        product {
+          _id
+          name
+        }
+      }
+      createdAt
+      updatedAt
     }
   }
 `;

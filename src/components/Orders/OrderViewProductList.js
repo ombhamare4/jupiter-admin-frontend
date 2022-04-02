@@ -76,7 +76,7 @@ const OrderViewProductList = (props) => {
       </div>
       <div className="flex font-bold text-gray-600">
         <h1 className="px-5">Total: </h1>
-        <h1>{converter(sumDiscount)}</h1>
+        <h1>Rs. {converter(sumDiscount)}</h1>
       </div>
     </div>
   );

@@ -184,7 +184,7 @@ const ProductForm = () => {
   return (
     <div className="p-5">
       {success && (
-        <SuccessModal title="Success" message="Product Added Successfully" />
+        <SuccessModal title="Success" message="Product Added Successfully" navLink="products"/>
       )}
       {error && (
         <ErrorModal

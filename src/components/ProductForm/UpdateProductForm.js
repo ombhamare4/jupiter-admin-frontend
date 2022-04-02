@@ -221,7 +221,7 @@ const UpdateProductForm = (props) => {
   return (
     <div className="p-5">
       {success &&
-      <SuccessModal title='Success' message='Product Updated Successfully'/>
+      <SuccessModal title='Success' message='Product Updated Successfully' navLink="products"/>
       }
       {error && (
         <ErrorModal
