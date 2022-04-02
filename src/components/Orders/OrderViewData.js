@@ -127,12 +127,6 @@ const OrderViewData = (props) => {
             </span>
           </h1>
           <h1 className="font-bold text-gray-600">
-            Country :{" "}
-            <span className="text-black font-normal">
-              {props.order.address.country}
-            </span>
-          </h1>
-          <h1 className="font-bold text-gray-600">
             Pincode:{" "}
             <span className="text-black font-normal">
               {props.order.address.pincode}
