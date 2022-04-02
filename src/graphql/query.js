@@ -56,8 +56,8 @@ export const GET_ORDERS = gql`
         street
         landmark
         city
-        country
         pincode
+        phoneNo
       }
       orderProducts {
         product {
@@ -77,15 +77,15 @@ export const ORDER_BY_ID = gql`
         firstName
         lastName
       }
-      phoneNo
+
       address {
         add1
         landmark
         city
         state
         street
-        country
         pincode
+        phoneNo
       }
       user {
         email
@@ -129,8 +129,8 @@ export const GET_SHIP = gql`
         state
         street
         landmark
+        phoneNo
         city
-        country
         pincode
       }
       orderProducts {

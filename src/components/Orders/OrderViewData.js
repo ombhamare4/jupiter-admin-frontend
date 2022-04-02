@@ -35,7 +35,7 @@ const OrderViewData = (props) => {
   var time =
     date + "," + month + " " + year + " " + hour + ":" + min + ":" + sec;
 
-  const [ship, { data, loading, error }] = useMutation(SHIPMENT_ORDER, {
+  const [ship, {loading, error }] = useMutation(SHIPMENT_ORDER, {
     onCompleted: () => {
       setSuccess(true);
     },
@@ -124,12 +124,6 @@ const OrderViewData = (props) => {
             Street:{" "}
             <span className="text-black font-normal">
               {props.order.address.street}
-            </span>
-          </h1>
-          <h1 className="font-bold text-gray-600">
-            Country :{" "}
-            <span className="text-black font-normal">
-              {props.order.address.country}
             </span>
           </h1>
           <h1 className="font-bold text-gray-600">
