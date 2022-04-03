@@ -4,14 +4,10 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-} from "@apollo/client";
-
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 const client = new ApolloClient({
-  uri: "https://jupiter-admin-pannel.herokuapp.com/graphql",
+  uri: "http://localhost:5000/graphql",
+  // uri: "https://jupiter-admin-pannel.herokuapp.com/graphql",
   cache: new InMemoryCache(),
 });
 

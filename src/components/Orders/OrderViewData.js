@@ -93,7 +93,7 @@ const OrderViewData = (props) => {
           <h1 className="font-bold text-gray-600">
             Contact:{" "}
             <span className="text-black font-normal">
-              {props.order.phoneNo}
+              {props.order.address.phoneNo}
             </span>
           </h1>
           <h1 className="font-bold text-gray-600">
