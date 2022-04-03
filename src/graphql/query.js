@@ -77,7 +77,6 @@ export const ORDER_BY_ID = gql`
         firstName
         lastName
       }
-
       address {
         add1
         landmark

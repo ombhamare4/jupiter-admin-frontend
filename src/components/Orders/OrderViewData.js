@@ -77,13 +77,13 @@ const OrderViewData = (props) => {
         </div>
         <div className="grid grid-cols-2 mb-2">
           <h1 className="font-bold text-gray-600">
-            Customer:
+            Customer:{" "}
             <span className="text-black font-normal">
               {props.order.user.name.firstName} {props.order.user.name.lastName}
             </span>
           </h1>
           <h1 className="font-bold text-gray-600">
-            Billing to:
+            Billing to:{" "}
             <span className="text-black font-normal">
               {props.order.name.firstName} {props.order.name.lastName}
             </span>
@@ -103,7 +103,7 @@ const OrderViewData = (props) => {
             </span>
           </h1>
           <h1 className="font-bold text-gray-600">
-            Landmark:
+            Landmark:{" "}
             <span className="text-black font-normal">
               {props.order.address.landmark}
             </span>{" "}
