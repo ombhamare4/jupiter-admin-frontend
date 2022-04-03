@@ -3,7 +3,7 @@ import { useState } from "react";
 import OrderViewProductList from "./OrderViewProductList";
 import Loading from "../Loading/Loading";
 import { SHIPMENT_ORDER } from "../../graphql/mutation";
-import { GET_ORDERS , GET_SHIP} from "../../graphql/query";
+import { GET_ORDERS, GET_SHIP } from "../../graphql/query";
 import SuccessModal from "../Modal/SuccessModal";
 import ErrorModal from "../Modal/ErrorModal";
 const OrderViewData = (props) => {
@@ -35,7 +35,8 @@ const OrderViewData = (props) => {
   var time =
     date + "," + month + " " + year + " " + hour + ":" + min + ":" + sec;
 
-  const [ship, {loading, error }] = useMutation(SHIPMENT_ORDER, {
+  const [ship, { loading, error }] = useMutation(SHIPMENT_ORDER, {
+    refetchQueries: [GET_ORDERS, "orders", GET_SHIP, "ship"],
     onCompleted: () => {
       setSuccess(true);
     },
@@ -45,7 +46,6 @@ const OrderViewData = (props) => {
         setIsError(true);
       }
     },
-    refetchQueries: [GET_ORDERS, "orders",GET_SHIP,"ship"],
   });
   if (loading) return <Loading />;
   if (error) return <p>Error :( </p>;
