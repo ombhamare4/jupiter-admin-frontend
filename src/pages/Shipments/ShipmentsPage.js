@@ -1,11 +1,12 @@
 import Shipments from "../../components/Shipments/Shipments";
 import { GET_SHIP } from "../../graphql/query";
 import { useQuery } from "@apollo/client";
-import Loading from "../../components/Loading/Loading";
+import NewLoading from "../../components/Message/NewLoading";
+import NewError from "../../components/Message/NewError";
 const ShipmentPage = () => {
   const { data, loading, error } = useQuery(GET_SHIP);
-  if (loading) return <Loading />;
-  if (error) return <p>Error :( </p>;
+  if (loading) return <NewLoading />;
+  if (error) return <NewError/>;
   return (
     <div>
       <Shipments ship={data.ship}/>

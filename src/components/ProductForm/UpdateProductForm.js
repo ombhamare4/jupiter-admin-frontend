@@ -4,6 +4,10 @@ import { UPDATE_PRODUCT } from "../../graphql/mutation";
 import { GET_PRODUCTS } from "../../graphql/query";
 import ErrorModal from "../Modal/ErrorModal";
 import SuccessModal from "../Modal/SuccessModal";
+
+import NewLoading from "../Message/NewLoading";
+import NewError from "../Message/NewError";
+
 const Category = [
   {
     id: 1,
@@ -107,42 +111,12 @@ const Category = [
   },
 ];
 
-// const UPDATE_PRODUCT = gql`
-//   mutation UpdateProduct(
-//     $productId: String!
-//     $name: String!
-//     $description: String!
-//     $originalPrice: Float!
-//     $discountPrice: Float!
-//     $image: String!
-//     $available: Int!
-//     $weight: Float!
-//     $category: String!
-//     $company: String!
-//   ) {
-//     updateProduct(
-//       productInput: {
-//         productId: $productId
-//         name: $name
-//         description: $description
-//         price: { originalPrice: $originalPrice, discountPrice: $discountPrice }
-//         image: $image
-//         available: $available
-//         weight: $weight
-//         category: $category
-//         company: $company
-//       }
-//     ) {
-//       name
-//     }
-//   }
-// `;
 
 const UpdateProductForm = (props) => {
   const [success, setSuccess] = useState(false);
-  const [error, setError] = useState(false);
+  const [iserror, setError] = useState(false);
 
-  const [updateProduct] = useMutation(UPDATE_PRODUCT, {
+  const [updateProduct,{loading,error}] = useMutation(UPDATE_PRODUCT, {
     onCompleted: () => {
       setSuccess(true);
     },
@@ -218,12 +192,15 @@ const UpdateProductForm = (props) => {
     setError(false);
   };
 
+  if(loading) return <NewLoading/>;
+  if(error) return <NewError/>;
+
   return (
     <div className="p-5">
       {success &&
       <SuccessModal title='Success' message='Product Updated Successfully' navLink="products"/>
       }
-      {error && (
+      {iserror && (
         <ErrorModal
           title="Something Went Wrong"
           error="Check Product Details Again"

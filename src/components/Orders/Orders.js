@@ -3,7 +3,8 @@ import { NavLink } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { SHIPMENT_ORDER } from "../../graphql/mutation";
 import { GET_ORDERS, GET_SHIP } from "../../graphql/query";
-import Loading from "../Loading/Loading";
+import NewLoading from "../Message/NewLoading";
+import NewError from "../Message/NewError";
 function dateConvert(orderDate) {
   var created_date = new Date(orderDate);
 
@@ -33,8 +34,8 @@ const Orders = (props) => {
   const [ship, { loading, error }] = useMutation(SHIPMENT_ORDER, {
     refetchQueries: [GET_ORDERS, "orders", GET_SHIP, "ship"],
   });
-  if (loading) return <Loading />;
-  if (error) return <p>Error :( </p>;
+  if (loading) return <NewLoading />;
+  if (error) return <NewError/>;
 
   const shipHandler = (event) => {
     ship({ variables: { orderId: event.target.value } });

@@ -1,11 +1,13 @@
 import { useMutation } from "@apollo/client";
 import { useState } from "react";
 import OrderViewProductList from "./OrderViewProductList";
-import Loading from "../Loading/Loading";
 import { SHIPMENT_ORDER } from "../../graphql/mutation";
 import { GET_ORDERS, GET_SHIP } from "../../graphql/query";
 import SuccessModal from "../Modal/SuccessModal";
 import ErrorModal from "../Modal/ErrorModal";
+import NewLoading from "../Message/NewLoading";
+import NewError from "../Message/NewError";
+
 const OrderViewData = (props) => {
   const [success, setSuccess] = useState(false);
   const [iserror, setIsError] = useState(false);
@@ -47,8 +49,7 @@ const OrderViewData = (props) => {
       }
     },
   });
-  if (loading) return <Loading />;
-  if (error) return <p>Error :( </p>;
+
 
   const shipHandler = (event) => {
     ship({ variables: { orderId: event.target.value } });
@@ -57,6 +58,9 @@ const OrderViewData = (props) => {
   const errorHandler = () => {
     setIsError(false);
   };
+
+  if (loading) return <NewLoading />;
+  if (error) return <NewError/>;
 
   return (
     <div className="p-5">

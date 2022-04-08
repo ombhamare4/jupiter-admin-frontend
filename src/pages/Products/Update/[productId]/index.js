@@ -2,15 +2,16 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import {FIND_PRODUCT_BY_ID} from "../../../../graphql/query"
 import UpdateProductForm from "../../../../components/ProductForm/UpdateProductForm";
-
-
+import NewLoading from "../../../../components/Message/NewLoading";
+import NewError from "../../../../components/Message/NewError";
 
 const ProductUpdate = () => {
   const { productId } = useParams();
-  const { data, loading} = useQuery(FIND_PRODUCT_BY_ID, {
+  const { data, loading,error} = useQuery(FIND_PRODUCT_BY_ID, {
     variables: { productId: productId },
   });
-  if (loading) return 'Loading...';
+  if (loading) return <NewLoading/>;
+  if(error) return <NewError/>;
 
   return (
     <div>

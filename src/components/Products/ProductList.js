@@ -2,9 +2,10 @@ import { NavLink } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { REMOVE_PRODUCT } from "../../graphql/mutation";
 import { GET_PRODUCTS } from "../../graphql/query";
-
+import NewLoading from "../Message/NewLoading";
+import NewError from "../Message/NewError";
 const ProductList = (props) => {
-  const [removeProduct] = useMutation(REMOVE_PRODUCT, {
+  const [removeProduct, {loading,error}] = useMutation(REMOVE_PRODUCT, {
     refetchQueries: [GET_PRODUCTS, "products"],
   });
   const deleteHandler = (event) => {
@@ -15,6 +16,9 @@ const ProductList = (props) => {
       },
     });
   };
+
+  if(loading) return <NewLoading/>;
+  if(error) return <NewError/>
 
   return (
     <div className="flex flex-col">

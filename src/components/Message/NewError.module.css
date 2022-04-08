@@ -1,0 +1,12 @@
+.error {
+  background-image: url("https://cdn.dribbble.com/users/1107512/screenshots/3836289/error404_dribbble_800x600x2.gif");
+background-repeat: no-repeat;
+background-position: center;
+background-color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 10;
+}

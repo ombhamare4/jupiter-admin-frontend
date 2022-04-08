@@ -5,7 +5,7 @@ import { CREATE_PORDUCT } from "../../graphql/mutation";
 import "../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import ErrorModal from "../Modal/ErrorModal";
 import SuccessModal from "../Modal/SuccessModal";
-
+import NewLoading from "../Message/NewLoading";
 const Category = [
   {
     id: 1,
@@ -111,20 +111,23 @@ const Category = [
 
 const ProductForm = () => {
   const [success, setSuccess] = useState(false);
-  const [error, setError] = useState(false);
+  const [iserror, setError] = useState(false);
 
-  const [addProduct, { refetch }] = useMutation(CREATE_PORDUCT, {
-    onCompleted: () => {
-      setSuccess(true);
-    },
-    onError: (error) => {
-      console.log(error);
-      if (error) {
-        setError(true);
-      }
-    },
-    refetchQueries: [GET_PRODUCTS, "products"],
-  });
+  const [addProduct, { refetch, loading }] = useMutation(
+    CREATE_PORDUCT,
+    {
+      onCompleted: () => {
+        setSuccess(true);
+      },
+      onError: (error) => {
+        console.log(error);
+        if (error) {
+          setError(true);
+        }
+      },
+      refetchQueries: [GET_PRODUCTS, "products"],
+    }
+  );
 
   const [dropDownSelect, setDropDownSelect] = useState(Category[0]);
 
@@ -181,12 +184,19 @@ const ProductForm = () => {
     setError(false);
   };
 
+  if(loading) return <NewLoading/>;
+  // if(error) return <NewError/>;
+
   return (
     <div className="p-5">
       {success && (
-        <SuccessModal title="Success" message="Product Added Successfully" navLink="products"/>
+        <SuccessModal
+          title="Success"
+          message="Product Added Successfully"
+          navLink="products"
+        />
       )}
-      {error && (
+      {iserror && (
         <ErrorModal
           title="Something Went Wrong"
           error="Check Product Details Again"
